@@ -52,6 +52,9 @@ class Server {
       try {
         const xml = await generateDynamicXML();
         res.type('application/xml');
+        res.set('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0');
+        res.set('Pragma', 'no-cache');
+        res.set('Expires', '0');
         res.send(xml);
       } catch (err) {
         console.error('Error serving dynamic pano.xml:', err);
@@ -60,19 +63,24 @@ class Server {
     });
 
     // 1. Dashboard (loginForm.html, adminForm.html, js/)
-    this.app.get(['/admin', '/admin/', '/admin/login', '/admin/loginform.html', '/loginForm.html', '/loginform.html'], (req, res) => {
+    this.app.get(['/admin', '/admin/', '/admin/login'], (req, res) => {
       res.redirect('/admin/loginForm.html');
     });
-    this.app.get(['/admin/dashboard', '/admin/adminform.html', '/admin/adminform.hrml', '/adminForm.html', '/adminform.html'], (req, res) => {
+    this.app.get('/admin/dashboard', (req, res) => {
+      res.redirect('/admin/adminForm.html');
+    });
+    this.app.get(['/loginForm.html', '/loginform.html'], (req, res) => {
+      res.redirect('/admin/loginForm.html');
+    });
+    this.app.get(['/adminForm.html', '/adminform.html', '/adminform.hrml'], (req, res) => {
       res.redirect('/admin/adminForm.html');
     });
     this.app.use('/admin', express.static(ADMIN_DIR));
-    this.app.use(express.static(ADMIN_DIR));
 
     // 2. Master Plan 360 — servido bajo /masterplan/
     this.app.use('/masterplan', express.static(MASTERPLAN_DIR));
 
-    // 3. Sitio web del proyecto — servido en la raíz (fallback)
+    // 3. Sitio web del proyecto — servido en la raíz
     this.app.use(express.static(SITE_DIR));
   }
 

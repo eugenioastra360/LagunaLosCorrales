@@ -3,12 +3,14 @@ const path = require('path');
 const xml2js = require('xml2js');
 const { supabase } = require('../database/supabase');
 
-const xmlFilePath = path.join(__dirname, '../../public/masterplan/pano.xml');
+const templateXmlPath = path.join(__dirname, '../data/pano_template.xml');
+const publicXmlPath = path.join(__dirname, '../../public/masterplan/pano.xml');
 
-// Helper to read and parse local XML
+// Helper to read and parse base XML template
 const getData = async () => {
   try {
-    const data = await fs.promises.readFile(xmlFilePath, 'utf-8');
+    const targetPath = fs.existsSync(templateXmlPath) ? templateXmlPath : publicXmlPath;
+    const data = await fs.promises.readFile(targetPath, 'utf-8');
     const result = await xml2js.parseStringPromise(data);
     return result;
   } catch (error) {
@@ -83,12 +85,75 @@ const fetchUFValue = async () => {
   return 38000;
 };
 
+// Formats JSON description back to clean display text for Pano2VR 360 viewer
 const cleanDescriptionForXML = (desc) => {
   if (!desc) return '';
+  try {
+    const trimmed = String(desc).trim();
+    if (trimmed.startsWith('{') && trimmed.endsWith('}')) {
+      const data = JSON.parse(trimmed);
+      const lines = [];
+      if (data.area) {
+        let areaStr = String(data.area).trim();
+        if (!areaStr.toLowerCase().startsWith('superficie')) {
+          if (!areaStr.toLowerCase().includes('ha') && !areaStr.toLowerCase().includes('m')) {
+            const num = parseFloat(areaStr.replace(/\./g, '').replace(',', '.'));
+            areaStr = !isNaN(num) ? `Superficie: ${new Intl.NumberFormat('es-CL').format(num)} m²` : `Superficie: ${areaStr}`;
+          } else {
+            areaStr = `Superficie: ${areaStr}`;
+          }
+        }
+        lines.push(areaStr);
+      }
+      if (data.comment && data.comment.trim()) {
+        lines.push(data.comment.trim());
+      }
+      if (data.description && data.description.trim()) {
+        lines.push(data.description.trim());
+      }
+      return lines.join('\n');
+    }
+  } catch (e) {}
   return desc;
 };
 
-// Sync database state into local pano.xml
+// Formats lot price cleanly according to status and currency
+const formatPriceForHotspot = (rawUrl, skinid, currency, rate) => {
+  if (skinid === 'ht_noDisponible') {
+    return 'Vendido';
+  }
+  if (skinid === 'ht_reservado') {
+    return 'Reservado';
+  }
+
+  const rawStr = String(rawUrl || '').trim();
+  if (!rawStr || rawStr === '0' || rawStr.toLowerCase() === 'vendido') {
+    return skinid === 'ht_noDisponible' ? 'Vendido' : 'Consultar';
+  }
+
+  const digitsOnly = parseFloat(rawStr.replace(/\D/g, '')) || 0;
+  if (digitsOnly === 0) {
+    return rawStr;
+  }
+
+  let ufValue = 0;
+  let clpValue = 0;
+  if (digitsOnly > 50000) {
+    clpValue = digitsOnly;
+    ufValue = rate > 0 ? Math.round(clpValue / rate) : 0;
+  } else {
+    ufValue = digitsOnly;
+    clpValue = rate > 0 ? Math.round(ufValue * rate) : 0;
+  }
+
+  if (currency === 'UF') {
+    return new Intl.NumberFormat('es-CL', { maximumFractionDigits: 0 }).format(ufValue) + ' UF';
+  } else {
+    return new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', maximumFractionDigits: 0 }).format(clpValue);
+  }
+};
+
+// Sync database state into local XML files (safe fallback)
 const syncDatabaseToXML = async (dbLots) => {
   try {
     const result = await getData();
@@ -111,22 +176,13 @@ const syncDatabaseToXML = async (dbLots) => {
           if (dbLot.id && dbLot.id.toLowerCase() === 'config_currency') return;
           const hotspot = hotspots.find(h => h.$.id.toLowerCase() === dbLot.id.toLowerCase());
           if (hotspot) {
-            // Update attributes from database record
-            hotspot.$.description = cleanDescriptionForXML(dbLot.description, dbLot.id);
-            hotspot.$.skinid = dbLot.skinid || '';
-            
-            // Format price for hotspot XML
-            const numericValue = parseFloat(dbLot.url) || 0;
-            if (dbLot.skinid === 'ht_noDisponible' || numericValue === 0) {
-              hotspot.$.url = 'Vendido';
-            } else {
-              if (currency === 'UF') {
-                hotspot.$.url = new Intl.NumberFormat('es-CL', { maximumFractionDigits: 0 }).format(numericValue) + ' UF';
-              } else {
-                const clpValue = Math.round(numericValue * rate);
-                hotspot.$.url = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', maximumFractionDigits: 0 }).format(clpValue);
-              }
+            let skinid = dbLot.skinid || '';
+            if (skinid.toLowerCase() === 'ht_nodisponible') {
+              skinid = 'ht_noDisponible';
             }
+            hotspot.$.skinid = skinid;
+            hotspot.$.description = cleanDescriptionForXML(dbLot.description);
+            hotspot.$.url = formatPriceForHotspot(dbLot.url, skinid, currency, rate);
           }
         });
 
@@ -134,8 +190,9 @@ const syncDatabaseToXML = async (dbLots) => {
         const builder = new xml2js.Builder();
         const xml = builder.buildObject(result);
 
-        await fs.promises.writeFile(xmlFilePath, xml);
-        console.log(`Successfully synced ${dbLots.length} database lots to local pano.xml (Node: ${nodeId})`);
+        const targetFile = fs.existsSync(templateXmlPath) ? templateXmlPath : publicXmlPath;
+        await fs.promises.writeFile(targetFile, xml);
+        console.log(`Successfully synced ${dbLots.length} database lots to ${path.basename(targetFile)} (Node: ${nodeId})`);
       } else {
         console.warn(`Panorama with id "${nodeId}" has no hotspots to sync`);
       }
@@ -383,21 +440,13 @@ const generateDynamicXML = async () => {
           if (id.toLowerCase() === 'config_currency') return;
           const dbLot = dbLots.find(l => l.id.toLowerCase() === id.toLowerCase());
           if (dbLot) {
-            hotspot.$.description = cleanDescriptionForXML(dbLot.description, dbLot.id);
-            hotspot.$.skinid = dbLot.skinid || '';
-            
-            // Format price for hotspot XML
-            const numericValue = parseFloat(dbLot.url) || 0;
-            if (dbLot.skinid === 'ht_noDisponible' || numericValue === 0) {
-              hotspot.$.url = 'Vendido';
-            } else {
-              if (currency === 'UF') {
-                hotspot.$.url = new Intl.NumberFormat('es-CL', { maximumFractionDigits: 0 }).format(numericValue) + ' UF';
-              } else {
-                const clpValue = Math.round(numericValue * rate);
-                hotspot.$.url = new Intl.NumberFormat('es-CL', { style: 'currency', currency: 'CLP', maximumFractionDigits: 0 }).format(clpValue);
-              }
+            let skinid = dbLot.skinid || '';
+            if (skinid.toLowerCase() === 'ht_nodisponible') {
+              skinid = 'ht_noDisponible';
             }
+            hotspot.$.skinid = skinid;
+            hotspot.$.description = cleanDescriptionForXML(dbLot.description);
+            hotspot.$.url = formatPriceForHotspot(dbLot.url, skinid, currency, rate);
           }
         });
       }
@@ -408,7 +457,8 @@ const generateDynamicXML = async () => {
     }
     
     // Return template raw file fallback if parsed object is empty
-    return await fs.promises.readFile(xmlFilePath, 'utf-8');
+    const targetFile = fs.existsSync(templateXmlPath) ? templateXmlPath : publicXmlPath;
+    return await fs.promises.readFile(targetFile, 'utf-8');
   } catch (error) {
     console.error('Error generating dynamic XML:', error);
     throw error;

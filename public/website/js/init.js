@@ -350,12 +350,15 @@ function grax_tm_hero_title_fade() {
 // -----------------------------------------------------
 
 function grax_tm_my_load(){
-	
 	"use strict";
 	
 	grax_tm_my_waypoint();
-	setTimeout(function(){grax_tm_preloader();},1000);
-	setTimeout(function(){grax_tm_hero_title_fade();},3000);
+	setTimeout(function(){grax_tm_preloader();}, 200);
+	setTimeout(function(){
+		jQuery('.grax_tm_topbar').addClass('opened');
+		jQuery('.grax_tm_down').addClass('opened');
+		grax_tm_hero_title_fade();
+	}, 400);
 }
 
 // -----------------------------------------------------

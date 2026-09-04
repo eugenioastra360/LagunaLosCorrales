@@ -50,7 +50,7 @@
 			// load the configuration
 		
 			window.addEventListener("load", function() {
-				pano.readConfigUrlAsync("pano.xml");
+				pano.readConfigUrlAsync("pano.xml?v=" + Date.now());
 			});
 		</script>
 		<noscript>

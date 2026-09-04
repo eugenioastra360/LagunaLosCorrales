@@ -97,5 +97,21 @@
       "source": "/FavIcon.png",
       "destination": "/website/FavIcon.png"
     }
+  ],
+  "functions": {
+    "api/index.js": {
+      "includeFiles": "src/**"
+    }
+  },
+  "headers": [
+    {
+      "source": "/masterplan/pano.xml",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0"
+        }
+      ]
+    }
   ]
 }
