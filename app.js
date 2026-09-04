@@ -3,8 +3,8 @@ const Server = require('./src/models/server');
 
 const server = new Server();
 
-// Start listener only if not running inside a serverless / Vercel context
-if (!process.env.VERCEL) {
+// Start listener only if run directly and not in a serverless context
+if (!process.env.VERCEL && require.main === module) {
   server.listen();
 }
 

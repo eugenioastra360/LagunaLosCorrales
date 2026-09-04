@@ -270,8 +270,8 @@
     }
   
     const replacePage = () => {
-      history.replaceState(null, null, 'loginForm.html');
-      location.href = `${window.location.origin}/loginForm.html`;
+      history.replaceState(null, null, '/admin/loginForm.html');
+      location.href = `${window.location.origin}/admin/loginForm.html`;
     };
   
     fetch(`${window.location.origin}/api/login/verify`, {

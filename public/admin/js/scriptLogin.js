@@ -100,7 +100,7 @@ form.addEventListener('submit', async (event) => {
           dataJSON.token
         }; expires=${expirationDate.toUTCString()}; path=/`;
 
-        window.location.href = `${window.location.origin}/adminForm.html`;
+        window.location.href = `${window.location.origin}/admin/adminForm.html`;
       } else {
         const errorElement = document.createElement('div');
         errorElement.className = 'alert alert-danger';

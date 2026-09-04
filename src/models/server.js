@@ -60,8 +60,11 @@ class Server {
     });
 
     // 1. Dashboard (loginForm.html, adminForm.html, js/)
-    this.app.get(['/admin', '/admin/'], (req, res) => {
+    this.app.get(['/admin', '/admin/', '/admin/login', '/admin/loginform.html', '/loginForm.html', '/loginform.html'], (req, res) => {
       res.redirect('/admin/loginForm.html');
+    });
+    this.app.get(['/admin/dashboard', '/admin/adminform.html', '/admin/adminform.hrml', '/adminForm.html', '/adminform.html'], (req, res) => {
+      res.redirect('/admin/adminForm.html');
     });
     this.app.use('/admin', express.static(ADMIN_DIR));
     this.app.use(express.static(ADMIN_DIR));
