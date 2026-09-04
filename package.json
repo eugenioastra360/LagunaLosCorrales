@@ -1,8 +1,8 @@
 {
-  "name": "07-restserver",
+  "name": "laguna-los-corrales",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Laguna Los Corrales Website, Masterplan 360, and Admin Backend",
+  "main": "app.js",
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js"
@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@supabase/supabase-js": "^2.110.3",
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
@@ -19,9 +20,11 @@
     "html-entities": "^2.3.3",
     "jsonwebtoken": "^9.0.0",
     "mongoose": "^7.0.3",
+    "openai": "^5.23.0",
     "xml2js": "^0.4.23"
   },
   "devDependencies": {
     "nodemon": "^2.0.22"
   }
 }
+

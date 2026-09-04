@@ -1,17 +1,27 @@
-const Role = require('../models/role.model');
-const User = require('../models/user.model');
+const { supabase } = require('../database/supabase');
 
 const isValidRole = async (role = '') => {
-  const existRole = await Role.findOne({ role });
-  if (!existRole) {
-    throw new Error(`Role ${role} not register in the database`);
+  const allowedRoles = ['ADMIN_ROLE', 'USER_ROLE'];
+  if (!allowedRoles.includes(role)) {
+    throw new Error(`Role ${role} is not registered in the system`);
   }
 };
 
 const isEmailDatabase = async (email = '') => {
-  const existEmail = await User.findOne({ email });
-  if (existEmail) {
-    throw new Error(`Email: ${email} already exist`);
+  try {
+    const { data: { users }, error } = await supabase.auth.admin.listUsers();
+
+    if (error) {
+      throw new Error(`Database validation error: ${error.message}`);
+    }
+
+    const exists = users.some(u => u.email === email);
+    if (exists) {
+      throw new Error(`Email: ${email} already exists`);
+    }
+  } catch (err) {
+    if (err.message.includes('already exists')) throw err;
+    throw new Error(`Validation error: ${err.message}`);
   }
 };
 

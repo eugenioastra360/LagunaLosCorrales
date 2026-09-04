@@ -66,7 +66,8 @@ document.addEventListener('DOMContentLoaded', function () {
       }
 
       preciosLotes.push(precio); // Agregar precio convertido a número
-      lotesLabels.push(`Lote ${lote.id}`);
+      const lotNum = lote.title || lote.id.replace(/^E\d+-/i, '') || lote.id;
+      lotesLabels.push(`Lote ${lotNum}`);
     });
 
     // Llenar gráficos

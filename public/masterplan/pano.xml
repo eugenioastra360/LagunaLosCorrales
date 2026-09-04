@@ -35,37 +35,37 @@
       <hotspot target="_blank" url="" id="Point01" title="Ruta T-567" pan="-340.42" description="" tilt="-45.35" skinid="ht_tag_georeferencia_smallRightYellow"/>
       <hotspot target="" url="images/futrono.jpg" id="Point01" title="Futrono" pan="-292.88" description="59 min | 53,0 km" tilt="0.1" skinid="ht_tag_georeferencia_largeRight"/>
       <hotspot target="$fwd" url="{node22}" id="Point01" title="Ver" pan="-162.68" description="" tilt="-28.86" skinid="ht_nodo_roundedB"/>
-      <hotspot target="_blank" url="$30.000.000" id="E04-13" title="13" pan="-169.46" description="Superficie: 2,10 ha&#xA;Servidumbre: 0,1082 ha" tilt="-27.86" skinid="ht_promocion"/>
-      <hotspot target="_blank" url="" id="E04-14" title="14" pan="-169.57" description="Superficie: 2,12 ha&#xA;Servidumbre: 0,0977 ha" tilt="-34.2" skinid="ht_noDisponible"/>
+      <hotspot target="_blank" url="Vendido" id="E04-13" title="13" pan="-169.46" description="Superficie: 2,10 ha&#xA;Servidumbre: 0,1082 ha" tilt="-27.86" skinid="ht_promocion"/>
+      <hotspot target="_blank" url="Vendido" id="E04-14" title="14" pan="-169.57" description="Superficie: 2,12 ha&#xA;Servidumbre: 0,0977 ha" tilt="-34.2" skinid="ht_noDisponible"/>
       <hotspot target="$fwd" url="{node24}" id="Point01" title="Ver" pan="-86.96" description="" tilt="-56.38" skinid="ht_nodo_roundedB"/>
-      <hotspot target="_blank" url="" id="E04-18" title="18" pan="-99.09" description="Superficie: 2,03 ha&#xA;Servidumbre: 0,0961 ha" tilt="-70.87" skinid="ht_noDisponible"/>
-      <hotspot target="_blank" url="" id="E04-19" title="19" pan="-65.41" description="Superficie: 2,00 ha&#xA;Servidumbre: 0,0733 ha" tilt="-57.6" skinid="ht_noDisponible"/>
+      <hotspot target="_blank" url="Vendido" id="E04-18" title="18" pan="-99.09" description="Superficie: 2,03 ha&#xA;Servidumbre: 0,0961 ha" tilt="-70.87" skinid="ht_noDisponible"/>
+      <hotspot target="_blank" url="Vendido" id="E04-19" title="19" pan="-65.41" description="Superficie: 2,00 ha&#xA;Servidumbre: 0,0733 ha" tilt="-57.6" skinid="ht_noDisponible"/>
       <hotspot target="$fwd" url="{node23}" id="Point01" title="Ver" pan="-33.11" description="" tilt="-16.74" skinid="ht_nodo_roundedB"/>
-      <hotspot target="_blank" url="$28.000.000" id="E04-25" title="25" pan="-29.52" description="Superficie: 2,32 ha&#xA;Servidumbre: 0,0592 ha" tilt="-17.54" skinid="ht_promocion"/>
+      <hotspot target="_blank" url="Vendido" id="E04-25" title="25" pan="-29.52" description="Superficie: 2,32 ha&#xA;Servidumbre: 0,0592 ha" tilt="-17.54" skinid="ht_promocion"/>
       <hotspot target="_blank" url="" id="Point01" title="Río Nilahue" pan="-243.92" description="" tilt="-23.92" skinid="ht_tag_georeferencia_mediumRight_Blue"/>
       <hotspot target="" url="images/mirador-laguna-pucura.jpg" id="Point01" title="Mirador Lago Pucura" pan="-290.99" description="12 min | 7,2" tilt="-2.82" skinid="ht_tag_georeferencia_smallx"/>
       <hotspot target="" url="images/laguna los corrales.jpg" id="Point01" title="Laguna Los Corrales" pan="-42.04" description="7 min | 4,5 km&#xA;" tilt="-0.12" skinid="ht_tag_georeferencia_largeLeftEspecial"/>
       <hotspot target="_blank" url="" id="Point01" title="Ruta T-85" pan="-282.88" description="" tilt="0.42" skinid="ht_tag_georeferencia_smallRightYellow"/>
-      <hotspot target="_blank" url="" id="E04-11" title="11" pan="-178.26" description="Superficie: 2,00 ha&#xA;Servidumbre: 0,0664 ha" tilt="-19.03" skinid="ht_noDisponible"/>
-      <hotspot target="_blank" url="" id="E04-12" title="12" pan="-173.42" description="Superficie: 2,00 ha&#xA;Servidumbre: 0,0647 ha" tilt="-23.82" skinid="ht_noDisponible"/>
-      <hotspot target="_blank" url="" id="E04-15" title="15" pan="-157.18" description="Superficie: 2,10 ha&#xA;Servidumbre: 0,0764 ha" tilt="-38.35" skinid="ht_noDisponible"/>
-      <hotspot target="_blank" url="" id="E04-16" title="16" pan="-145.72" description="Superficie: 2,00 ha&#xA;Servidumbre: 0,0629 ha" tilt="-45.94" skinid="ht_noDisponible"/>
-      <hotspot target="_blank" url="" id="E04-17" title="17" pan="-134.8" description="Superficie: 2,12 ha&#xA;Servidumbre: 0,0993 ha" tilt="-60.96" skinid="ht_noDisponible"/>
-      <hotspot target="_blank" url="" id="E04-20" title="20" pan="-59.66" description="Superficie: 2,00 ha&#xA;Servidumbre: 0,0763 ha" tilt="-43.05" skinid="ht_noDisponible"/>
-      <hotspot target="_blank" url="" id="E04-21" title="21" pan="-45.98" description="Superficie: 2,00 ha&#xA;Servidumbre: 0,0945 ha" tilt="-35.37" skinid="ht_noDisponible"/>
-      <hotspot target="_blank" url="" id="E04-22" title="22" pan="-34.19" description="Superficie: 3,20 ha&#xA;Servidumbre: 0,1743 ha" tilt="-30.86" skinid="ht_noDisponible"/>
-      <hotspot target="_blank" url="" id="E04-23" title="23" pan="-30.24" description="Superficie: 2,05 ha&#xA;Servidumbre: 0,0948 ha" tilt="-24.51" skinid="ht_noDisponible"/>
-      <hotspot target="_blank" url="" id="E04-24" title="24" pan="-33.45" description="Superficie: 2,07 ha&#xA;Servidumbre: 0,1020 ha" tilt="-19.8" skinid="ht_noDisponible"/>
-      <hotspot target="_blank" url="" id="E04-26" title="26" pan="-26.46" description="Superficie: 2,03 ha&#xA;Servidumbre: 0,0592 ha" tilt="-14.9" skinid="ht_noDisponible"/>
-      <hotspot target="_blank" url="$35.000.000" id="E04-2" title="2" pan="-22.66" description="Superficie: 2,00 ha&#xA;Servidumbre: 0,1421 ha" tilt="-18.14" skinid="ht_promocion"/>
-      <hotspot target="_blank" url="$35.000.000" id="E04-3" title="3" pan="-17.2" description="Superficie: 2,04 ha&#xA;Servidumbre: 0,1071 ha" tilt="-23.67" skinid="ht_promocion"/>
-      <hotspot target="_blank" url="$35.000.000" id="E04-4" title="4" pan="-17.82" description="Superficie: 2,06 ha&#xA;Servidumbre: 0,0829 ha" tilt="-31.63" skinid="ht_promocion"/>
-      <hotspot target="_blank" url="" id="E04-5" title="5" pan="-17.5" description="Superficie: 3,96 ha&#xA;Servidumbre: 0,1573 ha" tilt="-37.99" skinid="ht_noDisponible"/>
-      <hotspot target="_blank" url="" id="E04-6" title="6" pan="-24.3" description="Superficie: 2,00 ha&#xA;Servidumbre: 0,0890 ha" tilt="-56" skinid="ht_noDisponible"/>
-      <hotspot target="_blank" url="" id="E04-7" title="7" pan="-211.66" description="Superficie: 2,01 ha&#xA;Servidumbre: 0,1194 ha" tilt="-81.08" skinid="ht_noDisponible"/>
-      <hotspot target="_blank" url="" id="E04-8" title="8" pan="-189.02" description="Superficie: 2,07 ha&#xA;Servidumbre: 0,1262 ha" tilt="-53.35" skinid="ht_noDisponible"/>
-      <hotspot target="_blank" url="$35.000.000" id="E04-9" title="9" pan="-183.77" description="Superficie: 2,00 ha&#xA;Servidumbre: 0,1589 ha" tilt="-39.31" skinid="ht_noDisponible"/>
-      <hotspot target="_blank" url="" id="E04-10" title="10" pan="-187.99" description="Superficie: 3,65 ha&#xA;Servidumbre: 0,2272 ha" tilt="-25.01" skinid="ht_noDisponible"/>
+      <hotspot target="_blank" url="Vendido" id="E04-11" title="11" pan="-178.26" description="Superficie: 2,00 ha&#xA;Servidumbre: 0,0664 ha" tilt="-19.03" skinid="ht_noDisponible"/>
+      <hotspot target="_blank" url="Vendido" id="E04-12" title="12" pan="-173.42" description="Superficie: 2,00 ha&#xA;Servidumbre: 0,0647 ha" tilt="-23.82" skinid="ht_noDisponible"/>
+      <hotspot target="_blank" url="Vendido" id="E04-15" title="15" pan="-157.18" description="Superficie: 2,10 ha&#xA;Servidumbre: 0,0764 ha" tilt="-38.35" skinid="ht_noDisponible"/>
+      <hotspot target="_blank" url="Vendido" id="E04-16" title="16" pan="-145.72" description="Superficie: 2,00 ha&#xA;Servidumbre: 0,0629 ha" tilt="-45.94" skinid="ht_noDisponible"/>
+      <hotspot target="_blank" url="Vendido" id="E04-17" title="17" pan="-134.8" description="Superficie: 2,12 ha&#xA;Servidumbre: 0,0993 ha" tilt="-60.96" skinid="ht_noDisponible"/>
+      <hotspot target="_blank" url="Vendido" id="E04-20" title="20" pan="-59.66" description="Superficie: 2,00 ha&#xA;Servidumbre: 0,0763 ha" tilt="-43.05" skinid="ht_noDisponible"/>
+      <hotspot target="_blank" url="Vendido" id="E04-21" title="21" pan="-45.98" description="Superficie: 2,00 ha&#xA;Servidumbre: 0,0945 ha" tilt="-35.37" skinid="ht_noDisponible"/>
+      <hotspot target="_blank" url="Vendido" id="E04-22" title="22" pan="-34.19" description="Superficie: 3,20 ha&#xA;Servidumbre: 0,1743 ha" tilt="-30.86" skinid="ht_noDisponible"/>
+      <hotspot target="_blank" url="Vendido" id="E04-23" title="23" pan="-30.24" description="Superficie: 2,05 ha&#xA;Servidumbre: 0,0948 ha" tilt="-24.51" skinid="ht_noDisponible"/>
+      <hotspot target="_blank" url="Vendido" id="E04-24" title="24" pan="-33.45" description="Superficie: 2,07 ha&#xA;Servidumbre: 0,1020 ha" tilt="-19.8" skinid="ht_noDisponible"/>
+      <hotspot target="_blank" url="Vendido" id="E04-26" title="26" pan="-26.46" description="Superficie: 2,03 ha&#xA;Servidumbre: 0,0592 ha" tilt="-14.9" skinid="ht_noDisponible"/>
+      <hotspot target="_blank" url="Vendido" id="E04-2" title="2" pan="-22.66" description="{&quot;description&quot;:&quot;&quot;,&quot;comment&quot;:&quot;Servidumbre: 0,1421 ha&quot;,&quot;area&quot;:&quot;5000&quot;,&quot;owner&quot;:&quot;&quot;,&quot;saleDate&quot;:&quot;&quot;}" tilt="-18.14" skinid="ht_disponible"/>
+      <hotspot target="_blank" url="Vendido" id="E04-3" title="3" pan="-17.2" description="Superficie: 2,04 ha&#xA;Servidumbre: 0,1071 ha" tilt="-23.67" skinid="ht_promocion"/>
+      <hotspot target="_blank" url="Vendido" id="E04-4" title="4" pan="-17.82" description="Superficie: 2,06 ha&#xA;Servidumbre: 0,0829 ha" tilt="-31.63" skinid="ht_promocion"/>
+      <hotspot target="_blank" url="Vendido" id="E04-5" title="5" pan="-17.5" description="Superficie: 3,96 ha&#xA;Servidumbre: 0,1573 ha" tilt="-37.99" skinid="ht_noDisponible"/>
+      <hotspot target="_blank" url="Vendido" id="E04-6" title="6" pan="-24.3" description="Superficie: 2,00 ha&#xA;Servidumbre: 0,0890 ha" tilt="-56" skinid="ht_noDisponible"/>
+      <hotspot target="_blank" url="Vendido" id="E04-7" title="7" pan="-211.66" description="Superficie: 2,01 ha&#xA;Servidumbre: 0,1194 ha" tilt="-81.08" skinid="ht_noDisponible"/>
+      <hotspot target="_blank" url="Vendido" id="E04-8" title="8" pan="-189.02" description="Superficie: 2,07 ha&#xA;Servidumbre: 0,1262 ha" tilt="-53.35" skinid="ht_noDisponible"/>
+      <hotspot target="_blank" url="Vendido" id="E04-9" title="9" pan="-183.77" description="Superficie: 2,00 ha&#xA;Servidumbre: 0,1589 ha" tilt="-39.31" skinid="ht_noDisponible"/>
+      <hotspot target="_blank" url="Vendido" id="E04-10" title="10" pan="-187.99" description="Superficie: 3,65 ha&#xA;Servidumbre: 0,2272 ha" tilt="-25.01" skinid="ht_noDisponible"/>
     </hotspots>
     <media/>
     <transition blendcolor="0x000000" type="crossdissolve" zoomspeed="2" softedge="0" blendtime="1" zoomin="0" zoomfov="20" zoomout="0" zoomoutpause="1" enabled="1"/>

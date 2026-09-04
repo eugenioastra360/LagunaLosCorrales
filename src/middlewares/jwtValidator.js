@@ -1,7 +1,6 @@
-const jwt = require('jsonwebtoken');
-const User = require('../models/user.model');
+const { supabase } = require('../database/supabase');
 
-const authenticateJWT = (req, res, next) => {
+const authenticateJWT = async (req, res, next) => {
   const headerAuth = req.headers.authorization;
   if (!headerAuth) {
     return res.status(401).json({
@@ -11,28 +10,39 @@ const authenticateJWT = (req, res, next) => {
 
   const token = headerAuth.split(' ')[1];
 
-  if (token) {
-    jwt.verify(token, process.env.MY_SECRET_KEY_JWT, (err, user) => {
-      if (err) {
-        return res.status(403).json({
-          message: 'JWT invalid',
-        });
-      }
-
-      req.user = user;
-      next();
+  if (!token || token === 'logout') {
+    return res.status(401).json({
+      message: 'Token not provided or user logged out',
     });
-  } else {
-    res.status(401).json({
-      message: 'Token not provided',
+  }
+
+  try {
+    const { data: { user }, error } = await supabase.auth.getUser(token);
+
+    if (error || !user) {
+      console.warn('authenticateJWT: Supabase rejected token:', error ? error.message : 'no user found');
+      return res.status(403).json({
+        message: 'JWT invalid or expired',
+      });
+    }
+
+    // Attach user info to request (default role is ADMIN_ROLE for authenticated dashboard users)
+    req.user = {
+      userId: user.id,
+      email: user.email,
+      role: (user.user_metadata && user.user_metadata.role) || 'ADMIN_ROLE'
+    };
+    next();
+  } catch (err) {
+    console.error('Auth middleware error:', err);
+    return res.status(403).json({
+      message: 'JWT invalid',
     });
   }
 };
 
-const authorizeAdmin = async (req, res, next) => {
-  const user = await User.findById(req.user.userId);
-
-  if (user && user.role === 'ADMIN_ROLE') {
+const authorizeAdmin = (req, res, next) => {
+  if (req.user && req.user.userId) {
     next();
   } else {
     res.status(403).json({

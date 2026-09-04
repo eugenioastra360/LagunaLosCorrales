@@ -1,32 +1,36 @@
-const jwt = require('jsonwebtoken');
-const bcryptjs = require('bcryptjs');
-
-const User = require('../models/user.model');
+const { supabase } = require('../database/supabase');
 
 const getJWT = async (req, res) => {
   const { email, password } = req.body;
 
-  const user = await User.findOne({ email });
-  
-  if (!user) {
-    return res.status(401).json({ error: 'Invalid credentials' });
-  }
+  try {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password
+    });
 
-  const passwordMatches = await bcryptjs.compare(password, user.password);
-  if (!passwordMatches) {
-    return res.status(401).json({ error: 'Invalid credentials' });
-  }
+    if (error) {
+      console.error('Supabase Auth login error:', error.message);
+      return res.status(401).json({ error: 'Invalid credentials' });
+    }
 
-  const token = jwt.sign({ userId: user.id }, process.env.MY_SECRET_KEY_JWT, {
-    expiresIn: '2h',
-  });
-  res.json({ token });
+    // Return Supabase's access token
+    res.json({ token: data.session.access_token });
+  } catch (err) {
+    console.error('Error during login:', err);
+    res.status(500).json({ error: 'Server error during login' });
+  }
 };
 
-const verifyJwt = (req, res) => {
+const verifyJwt = async (req, res) => {
   const { token } = req.body;
   try {
-    jwt.verify(token, process.env.MY_SECRET_KEY_JWT);
+    const { data: { user }, error } = await supabase.auth.getUser(token);
+
+    if (error || !user) {
+      return res.status(403).json({ isValidToken: false });
+    }
+
     res.status(200).json({ isValidToken: true });
   } catch (error) {
     console.error('Invalid Token', error.message);

@@ -612,13 +612,14 @@ function grax_tm_contact_form(){
 		e.preventDefault();
 		
 		// Obtener los valores del formulario
-		const name = document.getElementById('name').value;
-		const phone = document.getElementById('phone').value;
-		const message = document.getElementById('message').value;
+		const name = (document.getElementById('name').value || '').trim();
+		const email = (document.getElementById('email').value || '').trim();
+		const phone = (document.getElementById('phone').value || '').trim();
+		const message = (document.getElementById('message').value || '').trim();
 		
 		// Validar campos
-		if (!name || !phone || !message) {
-			alert('Por favor complete todos los campos requeridos');
+		if (!name || !email || !phone) {
+			alert('Por favor complete su nombre, correo y teléfono.');
 			return;
 		}
 		
@@ -627,46 +628,39 @@ function grax_tm_contact_form(){
 		const originalBtnText = submitBtn.textContent;
 		submitBtn.textContent = 'Enviando...';
 		submitBtn.disabled = true;
-		//descargar brochure
-		
 
-		// Enviar datos a Google Sheets
-		fetch('https://script.google.com/macros/s/AKfycbwptueR462htbUweYq75_KyEzYIwRM1WeinJzoLqL_rxMADVZMWdzb7zG1ow0O65Pm6/exec', {
+		// Enviar datos directamente al backend (/api/leads)
+		fetch('/api/leads', {
 			method: 'POST',
 			headers: {
-				'Content-Type': 'application/x-www-form-urlencoded',
+				'Content-Type': 'application/json',
 			},
-			body: new URLSearchParams({
-				'name': name,
-				'phone': phone,
-				'message': message,
-				'timestamp': new Date().toLocaleString()
+			body: JSON.stringify({
+				name: name,
+				email: email,
+				phone: phone,
+				message: message,
+				origin: 'Sitio Web'
 			})
 		})
-		.then(response => {
+		.then(async response => {
+			const data = await response.json().catch(() => ({}));
 			if (!response.ok) {
-				throw new Error('Error en la red');
+				throw new Error(data.message || 'Error al procesar el mensaje');
 			}
-			return response.text();
+			return data;
 		})
-		.then(text => {
-			try {
-				const data = JSON.parse(text);
-				if (data.status === 'success') {
-					
-					//window.open('aqui poner link', '_blank');
-					alert('Tu mensaje ha sido enviado. Te contactaremos pronto.');
-					document.getElementById('contact_form').reset();
-				} else {
-					throw new Error(data.message || 'Error desconocido');
-				}
-			} catch (e) {
-				throw new Error('Respuesta no válida del servidor');
+		.then(data => {
+			const returnMsg = document.querySelector('.returnmessage');
+			if (returnMsg) {
+				returnMsg.innerHTML = '<span class="contact_success" style="color: #10b981; font-weight: 600; display: block; margin-bottom: 15px;">✓ Tu mensaje ha sido enviado con éxito. Te contactaremos a la brevedad.</span>';
 			}
+			alert('¡Gracias! Tu mensaje ha sido enviado con éxito. Te contactaremos a la brevedad.');
+			document.getElementById('contact_form').reset();
 		})
 		.catch(error => {
-			console.error('Error:', error);
-			alert('Hubo un error al enviar el formulario. Por favor inténtalo de nuevo.');
+			console.error('Error al enviar contacto:', error);
+			alert('Hubo un inconveniente al enviar tu mensaje: ' + error.message);
 		})
 		.finally(() => {
 			submitBtn.textContent = originalBtnText;
